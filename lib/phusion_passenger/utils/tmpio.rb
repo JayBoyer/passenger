@@ -25,7 +25,11 @@ class TmpIO < File
 
   # for easier env["rack.input"] compatibility with Rack <= 1.1
   def size
-    stat.size
+    begin
+      stat.size
+    rescue
+      return 0
+    end
   end unless File.method_defined?(:size)
 end
 
